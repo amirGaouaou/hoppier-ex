@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  h1= title
+  each val in questions
+    h3= val.title
+    p= val.description
+    a(class='button', href=val.link) Answer

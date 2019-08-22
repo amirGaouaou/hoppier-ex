@@ -1,0 +1,16 @@
+extends layout
+block content
+  h2= question.title
+  p= question.description
+  h2 Answer
+  if answers
+    each val in answers
+        h3=val.title
+        if val.image
+            img(style='height:150px' src=val.image, alt="")
+  if answer
+    p=answer
+
+
+    
+
