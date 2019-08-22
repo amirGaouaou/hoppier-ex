@@ -2,6 +2,11 @@ extends layout
 
 block content
   h1= title
+  p The mock data and product list is available here:
+  a(class='button', href='/mockdata') Mock Data
+  br
+  br
+  a(class='button', href='/products') Products
   each val in questions
     h3= val.title
     p= val.description

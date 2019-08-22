@@ -15,6 +15,7 @@ let answers = {}
 const solveAll = () => {
   let productMap = {}
 
+  // Loop through mock snacks, and add them to a hashmap
   mockSnacks.forEach((snack) => {
     let faveSnacks = snack.fave_snack.split(new RegExp('\, | and '));
     if (typeof faveSnacks === String) {
@@ -29,6 +30,8 @@ const solveAll = () => {
   let realSnacks = [];
   let emails = []
   totalPrice = 0
+
+  //Loop through real snacks and see if the snack exists if it does, save the necessary info for answers
   products.forEach((prod) => {
     const foundProd = productMap[prod.title];
     if (foundProd) {
@@ -37,14 +40,14 @@ const solveAll = () => {
         totalPrice += parseFloat( prod.variants[0].price );
     }
   });
-
+  // save all the answers
   answers.questionA = realSnacks;
   answers.questionB = emails;
   answers.questionC = `The total cost would be ${totalPrice}$`;
 }
 
 const getData = (req, res, next) => {
-  if(!mockSnacks) {
+  if (!mockSnacks) {
     const options = {
       method: 'GET',
       json: true,
@@ -64,9 +67,10 @@ const getData = (req, res, next) => {
     next();
   }
 };
-
+// mid layer to get the data, if its not 
 router.use(getData);
 
+// Routing 
 router.get('/', (req, res, next) => {
   var questions = [
     new Question({
@@ -89,6 +93,14 @@ router.get('/', (req, res, next) => {
   title: 'Hoppier exercice',
   questions: questions
   });
+});
+
+router.get('/mockdata', (req, res, next) => {
+  res.send(mockSnacks);
+});
+
+router.get('/products', (req, res, next) => {
+  res.send(products);
 });
 
 router.get('/questiona', (req, res, next) => {
